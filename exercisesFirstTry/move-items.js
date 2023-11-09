@@ -55,6 +55,7 @@ console.log("this is favs: ", favs);
 const heartCircle = "fa-heart-circle-plus";
 const heartCrack = "fa-heart-crack";
 
+
 const updateCollections = (id, direction) => {
 
 console.log("this is the id we got: ", id);
@@ -63,10 +64,11 @@ let elm = document.getElementById(id);
 console.log("this is the full element based on id: ", id, elm);
 
     if(direction === "toFavs") {
+        //toFavs
         favs.appendChild(elm);
         parentElm = elm.parentElement;
        
-        let iconToChange = elm.querySelector(".fa-solid.fa-heart-circle-plus");
+       let iconToChange = elm.querySelector(".fa-solid.fa-heart-circle-plus");
         // let iconToChange = document.querySelector(".fa-solid.fa-heart-circle-plus");
         console.log("iconToChange: ", iconToChange);
         iconToChange.classList.remove(heartCircle);
@@ -74,10 +76,10 @@ console.log("this is the full element based on id: ", id, elm);
         
         console.log("parentElm id switched: ", parentElm.id)
     }else if(direction === "toMain"){
-       
+        //toMain
         main.appendChild(elm);
         parentElm = elm.parentElement;
-        
+        // childElm = elm.children;
         let iconToChange = elm.querySelector(".fa-solid.fa-heart-crack");
         console.log("iconToChange: ", iconToChange)
         iconToChange.classList.remove(heartCrack);

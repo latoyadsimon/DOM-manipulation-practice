@@ -54,6 +54,7 @@ const initialStorage = {
 //saving color after loads
 if(currentFavorites) {
     for(let item of allItems) {
+
         if(currentFavorites.includes(item.id)){
             delete item.dataset.fav;
             item.dataset.fav = "true";
@@ -61,6 +62,7 @@ if(currentFavorites) {
         }
     }
 }
+
 
 localStorage.setItem(favorites, "");
 
@@ -75,7 +77,7 @@ const addToLocalStorage = (id) => {
     localStorage.setItem(favorites, curValue);
 }
 
-
+// trying to use json doesn't really work...
 
 //need a way to change box to and from favs
 //if the [data-fav] = true, should be in favs

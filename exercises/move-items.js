@@ -12,7 +12,8 @@
  */
 
 // Your code goes here...
-
+const allItems = document.querySelectorAll(".item");
+console.log("this is all items: ", allItems);
 
 
 /**
@@ -24,7 +25,8 @@
 
 // Your code goes here
 
-
+const main = document.getElementById("main");
+console.log("this is main: ", main);
 
 /**
  * @task
@@ -34,7 +36,8 @@
  */
 
 // Your code goes here
-
+const favs = document.getElementById("favs");
+console.log("this is favs: ", favs);
 
 
 /**
@@ -48,6 +51,45 @@
 
 // Your code goes here
 
+
+const heartCircle = "fa-heart-circle-plus";
+const heartCrack = "fa-heart-crack";
+
+
+const updateCollections = (id, direction) => {
+
+console.log("this is the id we got: ", id);
+console.log("this is direction up here, ", direction);
+let elm = document.getElementById(id);
+console.log("this is the full element based on id: ", id, elm);
+
+    if(direction === "toFavs") {
+        //toFavs
+        favs.appendChild(elm);
+        parentElm = elm.parentElement;
+       
+       let iconToChange = elm.querySelector(".fa-solid.fa-heart-circle-plus");
+        // let iconToChange = document.querySelector(".fa-solid.fa-heart-circle-plus");
+        console.log("iconToChange: ", iconToChange);
+        iconToChange.classList.remove(heartCircle);
+        iconToChange.classList.add(heartCrack);
+        
+        console.log("parentElm id switched: ", parentElm.id)
+    }else if(direction === "toMain"){
+        //toMain
+        main.appendChild(elm);
+        parentElm = elm.parentElement;
+        // childElm = elm.children;
+        let iconToChange = elm.querySelector(".fa-solid.fa-heart-crack");
+        console.log("iconToChange: ", iconToChange)
+        iconToChange.classList.remove(heartCrack);
+        iconToChange.classList.add(heartCircle);
+        
+        console.log("parentElm id switched: ", parentElm.id)
+      
+    }
+    
+}
 
 
 /**
@@ -67,3 +109,23 @@
 // Your code goes here...
 
 
+for(let elm of allItems) {
+    elm.addEventListener("click", function () {
+        let parentElmID = elm.parentElement.id;
+        console.log(parentElmID);
+        let elmID = elm.id;
+        console.log(elmID);
+        let direction = "";
+        if(parentElmID === "main") {
+            direction = "toFavs";
+            console.log(direction);
+            // return direction;
+        }else{
+            direction = "toMain";
+            console.log(direction);
+            // return direction;
+        }
+        updateCollections(elm.id, direction);
+    })
+
+}

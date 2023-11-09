@@ -38,3 +38,80 @@
  */
 
 // Your code goes here...
+const container = document.querySelector(".cardsContainer");
+const allItems = container.querySelectorAll(".card");
+console.log("allItems: ", allItems);
+const favorites = "favorites";
+const dataFav = "data-fav";
+const root = document.documentElement;
+const currentFavorites = localStorage.getItem(favorites);
+console.log("currentFavorites: ", currentFavorites);
+
+const initialStorage = {
+    items: [],
+};
+
+//saving color after loads
+if(currentFavorites) {
+    for(let item of allItems) {
+
+        if(currentFavorites.includes(item.id)){
+            delete item.dataset.fav;
+            item.dataset.fav = "true";
+            item.classList.add("red");
+        }
+    }
+}
+
+
+localStorage.setItem(favorites, "");
+
+const addToLocalStorage = (id) => {
+    let curValue = localStorage.getItem(favorites);
+
+    if(!curValue.length) {
+        curValue += `${id}`;
+    }else {
+        curValue += `, ${id}`;
+    }
+    localStorage.setItem(favorites, curValue);
+}
+
+// trying to use json doesn't really work...
+
+//need a way to change box to and from favs
+//if the [data-fav] = true, should be in favs
+const callbackFn = (e) => {
+    const item = e.target;
+    console.log(item);
+    if(item.dataset.fav === "false") {
+        delete item.dataset.fav;
+        item.dataset.fav = "true";
+        item.classList.add("red");
+        root.setAttribute(dataFav, "true");
+        addToLocalStorage(item.id);
+        console.log(item.dataset.fav);
+    }else{
+        delete item.dataset.fav;
+        item.dataset.fav = "false";
+        item.classList.remove("red");
+        root.setAttribute(dataFav, "false");
+        console.log(item.dataset.fav);
+        let newList = document.querySelectorAll("[data-fav]");
+        console.log("this is newList: ", newList);
+        let storageArr = "";
+        for(let item of newList) {
+            if(item.dataset.fav === "true") {
+                // storageArr += item.id;
+                if(!storageArr.length) {
+                    storageArr += `${item.id}`;
+                }else {
+                    storageArr += `, ${item.id}`;
+                }
+            }
+        }
+        localStorage.setItem(favorites, storageArr);
+    }
+}
+
+container.addEventListener("click", callbackFn);

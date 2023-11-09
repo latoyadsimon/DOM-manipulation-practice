@@ -12,7 +12,8 @@
  */
 
 // Your code goes here...
-
+const allItems = document.querySelectorAll(".item");
+console.log("allItems: ",allItems);
 
 
 /**
@@ -23,7 +24,8 @@
  */
 
 // Your code goes here...
-
+const sortBtn = document.querySelectorAll(".sortBtn");
+console.log("sortBtn: ", sortBtn);
 
 
 /**
@@ -38,7 +40,32 @@
  */
 
 // Your code goes here...
-
+const sortData = (direction) => {
+    const container = document.getElementById("main");
+    const newArr = Array.from(allItems);
+    if(direction === "desc") {
+        const sortCB = (a, b) => {
+            console.log(a.id, b.id);
+            if(a.id < b.id) return 1;
+            else if(a.id > b.id) return -1;
+            else return 0;
+        }
+        newArr.sort(sortCB);
+        console.log("this should be sorted: ", newArr);
+    }else{
+        const sortCB = (a, b) => {
+            console.log(a.id, b.id);
+            if(a.id > b.id) return 1;
+            else if(a.id < b.id) return -1;
+            else return 0;
+        }
+        newArr.sort(sortCB);
+        console.log("this should be sorted: ", newArr);
+    }
+    newArr.forEach((item)=> {
+        container.append(item);
+    })
+}
 
 
 /**
@@ -52,3 +79,11 @@
 // Your code goes here...
 
 
+for(let elm of sortBtn) {
+    elm.addEventListener("click", function () {
+        console.log(elm);
+        console.log(elm.dataset.sortdir);
+        let direction = elm.dataset.sortdir;
+        sortData(direction);
+    })
+}

@@ -62,7 +62,10 @@ if(currentFavorites) {
     }
 }
 
-localStorage.setItem(favorites, "");
+// making it so the second reload doesn't clear everything
+if(!localStorage.getItem(favorites)) {
+    localStorage.setItem(favorites, "");
+}
 
 const addToLocalStorage = (id) => {
     let curValue = localStorage.getItem(favorites);
@@ -82,13 +85,21 @@ const addToLocalStorage = (id) => {
 const callbackFn = (e) => {
     const item = e.target;
     console.log(item);
+    console.log("item classList: ", item.classList)
+    console.log("item classList: ", item.classList.value)
+    console.log("does it include card? ", item.classList.value === "card"? true: false);
+
     if(item.dataset.fav === "false") {
-        delete item.dataset.fav;
-        item.dataset.fav = "true";
-        item.classList.add("red");
-        root.setAttribute(dataFav, "true");
-        addToLocalStorage(item.id);
-        console.log(item.dataset.fav);
+        // added so it doesn't click the full container, just the cards
+        if(item.classList.value === "card") {
+            delete item.dataset.fav;
+            item.dataset.fav = "true";
+            item.classList.add("red");
+            root.setAttribute(dataFav, "true");
+            addToLocalStorage(item.id);
+            console.log(item.dataset.fav);
+        }
+      
     }else{
         delete item.dataset.fav;
         item.dataset.fav = "false";
